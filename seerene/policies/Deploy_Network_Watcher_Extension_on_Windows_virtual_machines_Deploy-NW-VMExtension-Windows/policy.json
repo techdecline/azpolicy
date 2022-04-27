@@ -1,0 +1,316 @@
+{
+ "properties": {
+  "displayName": "Deploy Network Watcher Extension on Windows virtual machines",
+  "policyType": "Custom",
+  "mode": "Indexed",
+  "description": "Deploy Network Watcher Extension on Windows virtual machines.",
+  "metadata": {
+   "category": "Monitoring",
+   "version": "1.0.0",
+   "createdBy": "cd5497e2-3358-4369-b351-cf3966793895",
+   "createdOn": "2021-09-28T05:53:31.4759557Z",
+   "updatedBy": null,
+   "updatedOn": null
+  },
+  "parameters": {
+   "effect": {
+    "type": "String",
+    "metadata": {
+     "description": "Enable or disable the execution of the policy",
+     "displayName": "Effect"
+    },
+    "allowedValues": [
+     "DeployIfNotExists",
+     "Disabled"
+    ],
+    "defaultValue": "DeployIfNotExists"
+   },
+   "listOfImageIdToInclude": {
+    "type": "Array",
+    "metadata": {
+     "description": "Example value: '/subscriptions/<subscriptionId>/resourceGroups/YourResourceGroup/providers/Microsoft.Compute/images/ContosoStdImage'",
+     "displayName": "Optional: List of virtual machine images that have supported Windows OS to add to scope"
+    },
+    "defaultValue": []
+   }
+  },
+  "policyRule": {
+   "if": {
+    "allOf": [
+     {
+      "equals": "Microsoft.Compute/virtualMachines",
+      "field": "type"
+     },
+     {
+      "anyOf": [
+       {
+        "field": "Microsoft.Compute/imageId",
+        "in": "[parameters('listOfImageIdToInclude')]"
+       },
+       {
+        "allOf": [
+         {
+          "equals": "MicrosoftWindowsServer",
+          "field": "Microsoft.Compute/imagePublisher"
+         },
+         {
+          "equals": "WindowsServer",
+          "field": "Microsoft.Compute/imageOffer"
+         },
+         {
+          "field": "Microsoft.Compute/imageSKU",
+          "in": [
+           "2008-R2-SP1",
+           "2008-R2-SP1-smalldisk",
+           "2012-Datacenter",
+           "2012-Datacenter-smalldisk",
+           "2012-R2-Datacenter",
+           "2012-R2-Datacenter-smalldisk",
+           "2016-Datacenter",
+           "2016-Datacenter-Server-Core",
+           "2016-Datacenter-Server-Core-smalldisk",
+           "2016-Datacenter-smalldisk",
+           "2016-Datacenter-with-Containers",
+           "2016-Datacenter-with-RDSH",
+           "2019-Datacenter",
+           "2019-Datacenter-Core",
+           "2019-Datacenter-Core-smalldisk",
+           "2019-Datacenter-Core-with-Containers",
+           "2019-Datacenter-Core-with-Containers-smalldisk",
+           "2019-Datacenter-smalldisk",
+           "2019-Datacenter-with-Containers",
+           "2019-Datacenter-with-Containers-smalldisk",
+           "2019-Datacenter-zhcn"
+          ]
+         }
+        ]
+       },
+       {
+        "allOf": [
+         {
+          "equals": "MicrosoftWindowsServer",
+          "field": "Microsoft.Compute/imagePublisher"
+         },
+         {
+          "equals": "WindowsServerSemiAnnual",
+          "field": "Microsoft.Compute/imageOffer"
+         },
+         {
+          "field": "Microsoft.Compute/imageSKU",
+          "in": [
+           "Datacenter-Core-1709-smalldisk",
+           "Datacenter-Core-1709-with-Containers-smalldisk",
+           "Datacenter-Core-1803-with-Containers-smalldisk"
+          ]
+         }
+        ]
+       },
+       {
+        "allOf": [
+         {
+          "equals": "MicrosoftWindowsServerHPCPack",
+          "field": "Microsoft.Compute/imagePublisher"
+         },
+         {
+          "equals": "WindowsServerHPCPack",
+          "field": "Microsoft.Compute/imageOffer"
+         }
+        ]
+       },
+       {
+        "allOf": [
+         {
+          "equals": "MicrosoftSQLServer",
+          "field": "Microsoft.Compute/imagePublisher"
+         },
+         {
+          "anyOf": [
+           {
+            "field": "Microsoft.Compute/imageOffer",
+            "like": "*-WS2016"
+           },
+           {
+            "field": "Microsoft.Compute/imageOffer",
+            "like": "*-WS2016-BYOL"
+           },
+           {
+            "field": "Microsoft.Compute/imageOffer",
+            "like": "*-WS2012R2"
+           },
+           {
+            "field": "Microsoft.Compute/imageOffer",
+            "like": "*-WS2012R2-BYOL"
+           }
+          ]
+         }
+        ]
+       },
+       {
+        "allOf": [
+         {
+          "equals": "MicrosoftRServer",
+          "field": "Microsoft.Compute/imagePublisher"
+         },
+         {
+          "equals": "MLServer-WS2016",
+          "field": "Microsoft.Compute/imageOffer"
+         }
+        ]
+       },
+       {
+        "allOf": [
+         {
+          "equals": "MicrosoftVisualStudio",
+          "field": "Microsoft.Compute/imagePublisher"
+         },
+         {
+          "field": "Microsoft.Compute/imageOffer",
+          "in": [
+           "VisualStudio",
+           "Windows"
+          ]
+         }
+        ]
+       },
+       {
+        "allOf": [
+         {
+          "equals": "MicrosoftDynamicsAX",
+          "field": "Microsoft.Compute/imagePublisher"
+         },
+         {
+          "equals": "Dynamics",
+          "field": "Microsoft.Compute/imageOffer"
+         },
+         {
+          "equals": "Pre-Req-AX7-Onebox-U8",
+          "field": "Microsoft.Compute/imageSKU"
+         }
+        ]
+       },
+       {
+        "allOf": [
+         {
+          "equals": "MicrosoftDynamicsAX",
+          "field": "Microsoft.Compute/imagePublisher"
+         },
+         {
+          "equals": "Dynamics",
+          "field": "Microsoft.Compute/imageOffer"
+         },
+         {
+          "equals": "Pre-Req-AX7-Onebox-V4",
+          "field": "Microsoft.Compute/imageSKU"
+         }
+        ]
+       },
+       {
+        "allOf": [
+         {
+          "equals": "microsoft-ads",
+          "field": "Microsoft.Compute/imagePublisher"
+         },
+         {
+          "equals": "windows-data-science-vm",
+          "field": "Microsoft.Compute/imageOffer"
+         }
+        ]
+       },
+       {
+        "allOf": [
+         {
+          "equals": "MicrosoftWindowsDesktop",
+          "field": "Microsoft.Compute/imagePublisher"
+         },
+         {
+          "equals": "Windows-10",
+          "field": "Microsoft.Compute/imageOffer"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "then": {
+    "details": {
+     "deployment": {
+      "properties": {
+       "mode": "incremental",
+       "parameters": {
+        "location": {
+         "value": "[field('location')]"
+        },
+        "vmName": {
+         "value": "[field('name')]"
+        }
+       },
+       "template": {
+        "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "1.0.0.0",
+        "outputs": {
+         "policy": {
+          "type": "string",
+          "value": "[concat('Enabled extension for VM', ': ', parameters('vmName'))]"
+         }
+        },
+        "parameters": {
+         "location": {
+          "type": "string"
+         },
+         "vmName": {
+          "type": "string"
+         }
+        },
+        "resources": [
+         {
+          "apiVersion": "2018-06-01",
+          "location": "[parameters('location')]",
+          "name": "[concat(parameters('vmName'), '/', variables('vmExtensionName'))]",
+          "properties": {
+           "autoUpgradeMinorVersion": true,
+           "publisher": "[variables('vmExtensionPublisher')]",
+           "type": "[variables('vmExtensionType')]",
+           "typeHandlerVersion": "[variables('vmExtensionTypeHandlerVersion')]"
+          },
+          "type": "Microsoft.Compute/virtualMachines/extensions"
+         }
+        ],
+        "variables": {
+         "vmExtensionName": "NetworkWatcherAgentWindows",
+         "vmExtensionPublisher": "Microsoft.Azure.NetworkWatcher",
+         "vmExtensionType": "NetworkWatcherAgentWindows",
+         "vmExtensionTypeHandlerVersion": "1.4"
+        }
+       }
+      }
+     },
+     "existenceCondition": {
+      "allOf": [
+       {
+        "equals": "NetworkWatcherAgentWindows",
+        "field": "Microsoft.Compute/virtualMachines/extensions/type"
+       },
+       {
+        "equals": "Microsoft.Azure.NetworkWatcher",
+        "field": "Microsoft.Compute/virtualMachines/extensions/publisher"
+       },
+       {
+        "equals": "Succeeded",
+        "field": "Microsoft.Compute/virtualMachines/extensions/provisioningState"
+       }
+      ]
+     },
+     "roleDefinitionIds": [
+      "/providers/microsoft.authorization/roleDefinitions/9980e02c-c2be-4d73-94e8-173b1dc7cf3c"
+     ],
+     "type": "Microsoft.Compute/virtualMachines/extensions"
+    },
+    "effect": "[parameters('effect')]"
+   }
+  }
+ },
+ "id": "/providers/Microsoft.Management/managementgroups/de58abff-1a44-45d4-b9bc-63e0850545ae/providers/Microsoft.Authorization/policyDefinitions/Deploy-NW-VMExtension-Windows",
+ "type": "Microsoft.Authorization/policyDefinitions",
+ "name": "Deploy-NW-VMExtension-Windows"
+}

@@ -1,0 +1,269 @@
+{
+ "properties": {
+  "displayName": "Deploy Network Watcher Extension for Linux virtual machines",
+  "policyType": "Custom",
+  "mode": "Indexed",
+  "description": "Deploy Network Watcher Extension for Linux virtual machines",
+  "metadata": {
+   "category": "Monitoring",
+   "version": "1.0.0",
+   "createdBy": "cd5497e2-3358-4369-b351-cf3966793895",
+   "createdOn": "2021-09-28T05:53:31.4997447Z",
+   "updatedBy": null,
+   "updatedOn": null
+  },
+  "parameters": {
+   "listOfImageIdToInclude": {
+    "type": "Array",
+    "metadata": {
+     "description": "Example value: '/subscriptions/<subscriptionId>/resourceGroups/YourResourceGroup/providers/Microsoft.Compute/images/ContosoStdImage'",
+     "displayName": "Optional: List of VM images that have supported Linux OS to add to scope"
+    },
+    "defaultValue": []
+   }
+  },
+  "policyRule": {
+   "if": {
+    "allOf": [
+     {
+      "equals": "Microsoft.Compute/virtualMachines",
+      "field": "type"
+     },
+     {
+      "anyOf": [
+       {
+        "field": "Microsoft.Compute/imageId",
+        "in": "[parameters('listOfImageIdToInclude')]"
+       },
+       {
+        "allOf": [
+         {
+          "equals": "Canonical",
+          "field": "Microsoft.Compute/imagePublisher"
+         },
+         {
+          "equals": "UbuntuServer",
+          "field": "Microsoft.Compute/imageOffer"
+         },
+         {
+          "anyOf": [
+           {
+            "field": "Microsoft.Compute/imageSKU",
+            "in": [
+             "14.04.0-LTS",
+             "14.04.1-LTS",
+             "14.04.5-LTS"
+            ]
+           },
+           {
+            "field": "Microsoft.Compute/imageSKU",
+            "in": [
+             "16.04-LTS",
+             "16.04.0-LTS"
+            ]
+           },
+           {
+            "field": "Microsoft.Compute/imageSKU",
+            "in": [
+             "18.04-LTS"
+            ]
+           }
+          ]
+         }
+        ]
+       },
+       {
+        "allOf": [
+         {
+          "equals": "RedHat",
+          "field": "Microsoft.Compute/imagePublisher"
+         },
+         {
+          "field": "Microsoft.Compute/imageOffer",
+          "in": [
+           "RHEL",
+           "RHEL-SAP-HANA"
+          ]
+         },
+         {
+          "anyOf": [
+           {
+            "field": "Microsoft.Compute/imageSKU",
+            "like": "6.*"
+           },
+           {
+            "field": "Microsoft.Compute/imageSKU",
+            "like": "7*"
+           },
+           {
+            "field": "Microsoft.Compute/imageSKU",
+            "like": "8*"
+           }
+          ]
+         }
+        ]
+       },
+       {
+        "allOf": [
+         {
+          "equals": "SUSE",
+          "field": "Microsoft.Compute/imagePublisher"
+         },
+         {
+          "field": "Microsoft.Compute/imageOffer",
+          "in": [
+           "SLES",
+           "SLES-HPC",
+           "SLES-HPC-Priority",
+           "SLES-SAP",
+           "SLES-SAP-BYOS",
+           "SLES-Priority",
+           "SLES-BYOS",
+           "SLES-SAPCAL",
+           "SLES-Standard"
+          ]
+         },
+         {
+          "anyOf": [
+           {
+            "field": "Microsoft.Compute/imageSKU",
+            "in": [
+             "12-SP2",
+             "12-SP3",
+             "12-SP4"
+            ]
+           }
+          ]
+         }
+        ]
+       },
+       {
+        "allOf": [
+         {
+          "equals": "OpenLogic",
+          "field": "Microsoft.Compute/imagePublisher"
+         },
+         {
+          "field": "Microsoft.Compute/imageOffer",
+          "in": [
+           "CentOS",
+           "Centos-LVM",
+           "CentOS-SRIOV"
+          ]
+         },
+         {
+          "anyOf": [
+           {
+            "field": "Microsoft.Compute/imageSKU",
+            "like": "6.*"
+           },
+           {
+            "field": "Microsoft.Compute/imageSKU",
+            "like": "7*"
+           }
+          ]
+         }
+        ]
+       },
+       {
+        "allOf": [
+         {
+          "equals": "cloudera",
+          "field": "Microsoft.Compute/imagePublisher"
+         },
+         {
+          "equals": "cloudera-centos-os",
+          "field": "Microsoft.Compute/imageOffer"
+         },
+         {
+          "field": "Microsoft.Compute/imageSKU",
+          "like": "7*"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "then": {
+    "details": {
+     "deployment": {
+      "properties": {
+       "mode": "incremental",
+       "parameters": {
+        "location": {
+         "value": "[field('location')]"
+        },
+        "vmName": {
+         "value": "[field('name')]"
+        }
+       },
+       "template": {
+        "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "1.0.0.0",
+        "outputs": {
+         "policy": {
+          "type": "string",
+          "value": "[concat('Enabled extension for VM', ': ', parameters('vmName'))]"
+         }
+        },
+        "parameters": {
+         "location": {
+          "type": "string"
+         },
+         "vmName": {
+          "type": "string"
+         }
+        },
+        "resources": [
+         {
+          "apiVersion": "2018-06-01",
+          "location": "[parameters('location')]",
+          "name": "[concat(parameters('vmName'), '/', variables('vmExtensionName'))]",
+          "properties": {
+           "autoUpgradeMinorVersion": true,
+           "publisher": "[variables('vmExtensionPublisher')]",
+           "type": "[variables('vmExtensionType')]",
+           "typeHandlerVersion": "[variables('vmExtensionTypeHandlerVersion')]"
+          },
+          "type": "Microsoft.Compute/virtualMachines/extensions"
+         }
+        ],
+        "variables": {
+         "vmExtensionName": "NetworkWatcherAgentLinux",
+         "vmExtensionPublisher": "Microsoft.Azure.NetworkWatcher",
+         "vmExtensionType": "NetworkWatcherAgentLinux",
+         "vmExtensionTypeHandlerVersion": "1.4"
+        }
+       }
+      }
+     },
+     "existenceCondition": {
+      "allOf": [
+       {
+        "equals": "NetworkWatcherAgentLinux",
+        "field": "Microsoft.Compute/virtualMachines/extensions/type"
+       },
+       {
+        "equals": "Microsoft.Azure.NetworkWatcher",
+        "field": "Microsoft.Compute/virtualMachines/extensions/publisher"
+       },
+       {
+        "equals": "Succeeded",
+        "field": "Microsoft.Compute/virtualMachines/extensions/provisioningState"
+       }
+      ]
+     },
+     "roleDefinitionIds": [
+      "/providers/microsoft.authorization/roleDefinitions/9980e02c-c2be-4d73-94e8-173b1dc7cf3c"
+     ],
+     "type": "Microsoft.Compute/virtualMachines/extensions"
+    },
+    "effect": "deployIfNotExists"
+   }
+  }
+ },
+ "id": "/providers/Microsoft.Management/managementgroups/de58abff-1a44-45d4-b9bc-63e0850545ae/providers/Microsoft.Authorization/policyDefinitions/Deploy-NW-VMExtension-Linux",
+ "type": "Microsoft.Authorization/policyDefinitions",
+ "name": "Deploy-NW-VMExtension-Linux"
+}

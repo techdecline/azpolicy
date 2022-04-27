@@ -1,0 +1,46 @@
+{
+ "properties": {
+  "displayName": "KeyVault SoftDelete should be enabled",
+  "policyType": "Custom",
+  "mode": "Indexed",
+  "description": "This policy enables you to ensure when a Key Vault is created with out soft delete enabled it will be added.",
+  "metadata": {
+   "category": "Key Vault",
+   "version": "1.0.0",
+   "createdBy": "cd5497e2-3358-4369-b351-cf3966793895",
+   "createdOn": "2021-09-29T11:54:38.4523768Z",
+   "updatedBy": null,
+   "updatedOn": null
+  },
+  "policyRule": {
+   "if": {
+    "anyOf": [
+     {
+      "allOf": [
+       {
+        "equals": "Microsoft.KeyVault/vaults",
+        "field": "type"
+       },
+       {
+        "field": "Microsoft.KeyVault/vaults/enableSoftDelete",
+        "notEquals": true
+       }
+      ]
+     }
+    ]
+   },
+   "then": {
+    "details": [
+     {
+      "field": "Microsoft.KeyVault/vaults/enableSoftDelete",
+      "value": true
+     }
+    ],
+    "effect": "append"
+   }
+  }
+ },
+ "id": "/providers/Microsoft.Management/managementgroups/de58abff-1a44-45d4-b9bc-63e0850545ae/providers/Microsoft.Authorization/policyDefinitions/Append-KV-SoftDelete",
+ "type": "Microsoft.Authorization/policyDefinitions",
+ "name": "Append-KV-SoftDelete"
+}

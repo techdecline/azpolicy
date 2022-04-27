@@ -1,0 +1,59 @@
+{
+ "properties": {
+  "displayName": "Deny vNet peering cross subscription except for excluded subscriptions.",
+  "policyType": "Custom",
+  "mode": "Indexed",
+  "description": "This policy denies the creation of vNet Peerings outside of the same subscriptions under the assigned scope except for assigned subscriptions like hub-subscription.",
+  "metadata": {
+   "category": "Network",
+   "version": "1.0.0.0",
+   "createdBy": "cd5497e2-3358-4369-b351-cf3966793895",
+   "createdOn": "2021-09-29T11:17:51.1997425Z",
+   "updatedBy": null,
+   "updatedOn": null
+  },
+  "parameters": {
+   "allowedSubs": {
+    "type": "Array",
+    "metadata": {
+     "description": "List of Subscriptions that peerings can be established with",
+     "displayName": "Allowed Subscriptions"
+    },
+    "defaultValue": []
+   },
+   "effect": {
+    "type": "String",
+    "metadata": {
+     "description": "Enable or disable the execution of the policy",
+     "displayName": "Effect"
+    },
+    "allowedValues": [
+     "Audit",
+     "Deny",
+     "Disabled"
+    ],
+    "defaultValue": "Deny"
+   }
+  },
+  "policyRule": {
+   "if": {
+    "allOf": [
+     {
+      "equals": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+      "field": "type"
+     },
+     {
+      "notIn": "[concat(array(subscription().id), parameters('allowedSubs'))]",
+      "value": "[substring(field('Microsoft.Network/virtualNetworks/virtualNetworkPeerings/remoteVirtualNetwork.id'), 15, 36)]"
+     }
+    ]
+   },
+   "then": {
+    "effect": "[parameters('effect')]"
+   }
+  }
+ },
+ "id": "/providers/Microsoft.Management/managementgroups/de58abff-1a44-45d4-b9bc-63e0850545ae/providers/Microsoft.Authorization/policyDefinitions/Deny-VNET-Peer-Cross-Sub-Except-Allowed",
+ "type": "Microsoft.Authorization/policyDefinitions",
+ "name": "Deny-VNET-Peer-Cross-Sub-Except-Allowed"
+}
