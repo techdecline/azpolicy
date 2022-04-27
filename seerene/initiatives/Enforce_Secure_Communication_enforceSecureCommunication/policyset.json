@@ -1,0 +1,98 @@
+{
+ "properties": {
+  "displayName": "Enforce Secure Communication",
+  "policyType": "Custom",
+  "description": "Enforces TLS 1.2 and HTTPs for a variety of services",
+  "metadata": {
+   "createdBy": "cd5497e2-3358-4369-b351-cf3966793895",
+   "createdOn": "2021-09-29T11:59:46.2636495Z",
+   "updatedBy": "cd5497e2-3358-4369-b351-cf3966793895",
+   "updatedOn": "2022-04-27T09:30:29.3106434Z"
+  },
+  "policyDefinitions": [
+   {
+    "policyDefinitionReferenceId": "2327458019611147640",
+    "policyDefinitionId": "/providers/Microsoft.Management/managementgroups/de58abff-1a44-45d4-b9bc-63e0850545ae/providers/Microsoft.Authorization/policyDefinitions/Append-AppService-httpsonly",
+    "parameters": {}
+   },
+   {
+    "policyDefinitionReferenceId": "12480308265816023978",
+    "policyDefinitionId": "/providers/Microsoft.Management/managementgroups/de58abff-1a44-45d4-b9bc-63e0850545ae/providers/Microsoft.Authorization/policyDefinitions/Append-AppService-latestTLS",
+    "parameters": {}
+   },
+   {
+    "policyDefinitionReferenceId": "16932064216229947413",
+    "policyDefinitionId": "/providers/Microsoft.Management/managementgroups/de58abff-1a44-45d4-b9bc-63e0850545ae/providers/Microsoft.Authorization/policyDefinitions/Deny-AppServiceApiApp-http",
+    "parameters": {}
+   },
+   {
+    "policyDefinitionReferenceId": "6825515730390210684",
+    "policyDefinitionId": "/providers/Microsoft.Management/managementgroups/de58abff-1a44-45d4-b9bc-63e0850545ae/providers/Microsoft.Authorization/policyDefinitions/Deny-AppServiceFunctionApp-http",
+    "parameters": {}
+   },
+   {
+    "policyDefinitionReferenceId": "12916783067514260731",
+    "policyDefinitionId": "/providers/Microsoft.Management/managementgroups/de58abff-1a44-45d4-b9bc-63e0850545ae/providers/Microsoft.Authorization/policyDefinitions/Deny-AppServiceWebApp-http",
+    "parameters": {}
+   },
+   {
+    "policyDefinitionReferenceId": "11331255465108969372",
+    "policyDefinitionId": "/providers/Microsoft.Management/managementgroups/de58abff-1a44-45d4-b9bc-63e0850545ae/providers/Microsoft.Authorization/policyDefinitions/Deny-MySql-http",
+    "parameters": {}
+   },
+   {
+    "policyDefinitionReferenceId": "2934278159339263388",
+    "policyDefinitionId": "/providers/Microsoft.Management/managementgroups/de58abff-1a44-45d4-b9bc-63e0850545ae/providers/Microsoft.Authorization/policyDefinitions/Deny-PostgreSql-http",
+    "parameters": {}
+   },
+   {
+    "policyDefinitionReferenceId": "14400366565888114210",
+    "policyDefinitionId": "/providers/Microsoft.Management/managementgroups/de58abff-1a44-45d4-b9bc-63e0850545ae/providers/Microsoft.Authorization/policyDefinitions/Deny-Redis-http",
+    "parameters": {}
+   },
+   {
+    "policyDefinitionReferenceId": "5293070956158641689",
+    "policyDefinitionId": "/providers/Microsoft.Management/managementgroups/de58abff-1a44-45d4-b9bc-63e0850545ae/providers/Microsoft.Authorization/policyDefinitions/Deny-Sql-minTLS",
+    "parameters": {}
+   },
+   {
+    "policyDefinitionReferenceId": "11124800090579993441",
+    "policyDefinitionId": "/providers/Microsoft.Management/managementgroups/de58abff-1a44-45d4-b9bc-63e0850545ae/providers/Microsoft.Authorization/policyDefinitions/Deny-SqlMi-minTLS",
+    "parameters": {}
+   },
+   {
+    "policyDefinitionReferenceId": "8235951963970558311",
+    "policyDefinitionId": "/providers/Microsoft.Management/managementgroups/de58abff-1a44-45d4-b9bc-63e0850545ae/providers/Microsoft.Authorization/policyDefinitions/Deny-Storage-minTLS",
+    "parameters": {}
+   },
+   {
+    "policyDefinitionReferenceId": "17361116050358883169",
+    "policyDefinitionId": "/providers/Microsoft.Management/managementgroups/de58abff-1a44-45d4-b9bc-63e0850545ae/providers/Microsoft.Authorization/policyDefinitions/Deploy-MySQL-sslEnforcement",
+    "parameters": {}
+   },
+   {
+    "policyDefinitionReferenceId": "1859846037973538502",
+    "policyDefinitionId": "/providers/Microsoft.Management/managementgroups/de58abff-1a44-45d4-b9bc-63e0850545ae/providers/Microsoft.Authorization/policyDefinitions/Deploy-PostgreSQL-sslEnforcement",
+    "parameters": {}
+   },
+   {
+    "policyDefinitionReferenceId": "8512781969164956113",
+    "policyDefinitionId": "/providers/Microsoft.Management/managementgroups/de58abff-1a44-45d4-b9bc-63e0850545ae/providers/Microsoft.Authorization/policyDefinitions/Deploy-SQL-minTLS",
+    "parameters": {}
+   },
+   {
+    "policyDefinitionReferenceId": "6272570258881802718",
+    "policyDefinitionId": "/providers/Microsoft.Management/managementgroups/de58abff-1a44-45d4-b9bc-63e0850545ae/providers/Microsoft.Authorization/policyDefinitions/Deploy-SqlMi-minTLS",
+    "parameters": {}
+   },
+   {
+    "policyDefinitionReferenceId": "1891357727038721463",
+    "policyDefinitionId": "/providers/Microsoft.Management/managementgroups/de58abff-1a44-45d4-b9bc-63e0850545ae/providers/Microsoft.Authorization/policyDefinitions/Deploy-Storage-sslEnforcement",
+    "parameters": {}
+   }
+  ]
+ },
+ "id": "/providers/Microsoft.Management/managementgroups/de58abff-1a44-45d4-b9bc-63e0850545ae/providers/Microsoft.Authorization/policySetDefinitions/enforceSecureCommunication",
+ "type": "Microsoft.Authorization/policySetDefinitions",
+ "name": "enforceSecureCommunication"
+}

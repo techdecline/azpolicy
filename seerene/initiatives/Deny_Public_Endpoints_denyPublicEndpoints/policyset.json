@@ -1,0 +1,48 @@
+{
+ "properties": {
+  "displayName": "Deny Public Endpoints",
+  "policyType": "Custom",
+  "description": "Denies resources to have open connections without access limitations (networkAcls.defaultAction != deny)",
+  "metadata": {
+   "createdBy": "cd5497e2-3358-4369-b351-cf3966793895",
+   "createdOn": "2021-09-29T11:59:46.3516038Z",
+   "updatedBy": "cd5497e2-3358-4369-b351-cf3966793895",
+   "updatedOn": "2022-04-27T09:30:29.2903785Z"
+  },
+  "policyDefinitions": [
+   {
+    "policyDefinitionReferenceId": "14370452809707269853",
+    "policyDefinitionId": "/providers/Microsoft.Management/managementgroups/de58abff-1a44-45d4-b9bc-63e0850545ae/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-Aks",
+    "parameters": {}
+   },
+   {
+    "policyDefinitionReferenceId": "12858559612356358609",
+    "policyDefinitionId": "/providers/Microsoft.Management/managementgroups/de58abff-1a44-45d4-b9bc-63e0850545ae/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-CosmosDB",
+    "parameters": {}
+   },
+   {
+    "policyDefinitionReferenceId": "748614055102099162",
+    "policyDefinitionId": "/providers/Microsoft.Management/managementgroups/de58abff-1a44-45d4-b9bc-63e0850545ae/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-KeyVault",
+    "parameters": {}
+   },
+   {
+    "policyDefinitionReferenceId": "2072141009795093721",
+    "policyDefinitionId": "/providers/Microsoft.Management/managementgroups/de58abff-1a44-45d4-b9bc-63e0850545ae/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-MariaDB",
+    "parameters": {}
+   },
+   {
+    "policyDefinitionReferenceId": "10098859711851561499",
+    "policyDefinitionId": "/providers/Microsoft.Management/managementgroups/de58abff-1a44-45d4-b9bc-63e0850545ae/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-MySQL",
+    "parameters": {}
+   },
+   {
+    "policyDefinitionReferenceId": "12880134021605196819",
+    "policyDefinitionId": "/providers/Microsoft.Management/managementgroups/de58abff-1a44-45d4-b9bc-63e0850545ae/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-Storage",
+    "parameters": {}
+   }
+  ]
+ },
+ "id": "/providers/Microsoft.Management/managementgroups/de58abff-1a44-45d4-b9bc-63e0850545ae/providers/Microsoft.Authorization/policySetDefinitions/denyPublicEndpoints",
+ "type": "Microsoft.Authorization/policySetDefinitions",
+ "name": "denyPublicEndpoints"
+}
